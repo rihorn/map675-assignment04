@@ -1,0 +1,19 @@
+{
+  "name": "map675-assignment04",
+  "version": "1.0.0",
+  "description": "Collaborative portion of module-02",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rihorn/map675-assignment04.git"
+  },
+  "author": "Ian Horn and Marissa Defratti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rihorn/map675-assignment04/issues"
+  },
+  "homepage": "https://github.com/rihorn/map675-assignment04#readme"
+}
