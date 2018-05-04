@@ -30,3 +30,4 @@ I ran the following script outside of the scope of the _.git_ in order to avoid 
 [o] Wrote global_settlement_points_v1-Africa.json
 ```
 
+I then removed _*Continent*_ from the .json `$ mapshaper data/global_settlement_points_v1-Americas-South-America.json -filter-fields Year,Name1,Country -o format=geojson`
