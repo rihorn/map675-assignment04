@@ -32,7 +32,7 @@
   <script>
     // map options
     var options = {
-       center: [37.265, -94.04],
+       center: [58.303889,22.27888915],
       zoom: 4
     }
     // instantiate Leaflet map
@@ -44,7 +44,7 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(map);
 
-    d3.json('data/asia-settlement-points.json').then(function (data) {
+    d3.json('data/europe-settlements.json').then(function (data) {
       L.geoJson(data).addTo(map)
     });
 
