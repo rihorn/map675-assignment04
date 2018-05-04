@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/rihorn/map675-assignment04/issues"
   },
-  "homepage": "https://github.com/rihorn/map675-assignment04#readme"
+  "homepage": "https://github.com/rihorn/map675-assignment04#readme",
+  "dependencies": {
+    "chalk": "^2.4.1"
+  }
 }
