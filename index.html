@@ -32,8 +32,8 @@
   <script>
     // map options
     var options = {
-       center: [58.303889,22.27888915],
-      zoom: 4
+       center: [-16.6006,-56.1004],
+      zoom: 3.2
     }
     // instantiate Leaflet map
     var map = L.map('map', options);
@@ -44,7 +44,7 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(map);
 
-    d3.json('data/europe-settlements.json').then(function (data) {
+    d3.json('data/global_settlement_points_v1-Americas-South America.json').then(function (data) {
       L.geoJson(data).addTo(map)
     });
 

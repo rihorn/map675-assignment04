@@ -19,20 +19,14 @@ Sample text containing non-ascii characters:
 
 I ran the following script outside of the scope of the _.git_ in order to avoid a commit with large files.  
 
+`mapshaper global_settlement_points_v1.01.shp -filter-fields Continent,Country,Name1,Year -split Continent -o format=geojson`
 
 ```
-c:\Users\ian.horn\OneDrive - Commonwealth of Kentucky-\map675-assignment04\data>mapshaper global-settlements.json -filter-fields Continent,Country,Name1,Latitude,Longitude -split Continent -o format=geojson
-
-[o] Wrote global-settlements-Asia.json
-[o] Wrote global-settlements-Americas-South America.json
-[o] Wrote global-settlements-Americas-North America.json
-[o] Wrote global-settlements-Oceania.json
-[o] Wrote global-settlements-Europe.json
-[o] Wrote global-settlements-Africa.json
-
+[o] Wrote global_settlement_points_v1-Asia.json
+[o] Wrote global_settlement_points_v1-Americas-South America.json
+[o] Wrote global_settlement_points_v1-Americas-North America.json
+[o] Wrote global_settlement_points_v1-Oceania.json
+[o] Wrote global_settlement_points_v1-Europe.json
+[o] Wrote global_settlement_points_v1-Africa.json
 ```
-then to filter the file even more
 
-```
-c:\Users\ian.horn\OneDrive - Commonwealth of Kentucky-\map675-assignment04\data>mapshaper global-settlements-Europe.json -filter-fields Country,Name1 -o format=geojson global-settlements-Europe-filtered.json
-````
