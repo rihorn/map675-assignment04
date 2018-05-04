@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rihorn/map675-assignment04#readme",
   "dependencies": {
-    "chalk": "^2.4.1"
+    "chalk": "^2.4.1",
+    "node-unrar": "^0.1.5"
   }
 }
