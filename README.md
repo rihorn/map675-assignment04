@@ -17,6 +17,22 @@ Sample text containing non-ascii characters:
   Entre Ríos
   Paraná```
 
-`global_settlement_points_v1.01.shp  -split Continent -o format=geojson`
+I ran the following script outside of the scope of the _.git_ in order to avoid a commit with large files.  
 
-`mapshaper global_settlement_points_v1-Europe.json -filter-fields -o format=geojson ../data/europe-settlements.json`
+
+```
+c:\Users\ian.horn\OneDrive - Commonwealth of Kentucky-\map675-assignment04\data>mapshaper global-settlements.json -filter-fields Continent,Country,Name1,Latitude,Longitude -split Continent -o format=geojson
+
+[o] Wrote global-settlements-Asia.json
+[o] Wrote global-settlements-Americas-South America.json
+[o] Wrote global-settlements-Americas-North America.json
+[o] Wrote global-settlements-Oceania.json
+[o] Wrote global-settlements-Europe.json
+[o] Wrote global-settlements-Africa.json
+
+```
+then to filter the file even more
+
+```
+c:\Users\ian.horn\OneDrive - Commonwealth of Kentucky-\map675-assignment04\data>mapshaper global-settlements-Europe.json -filter-fields Country,Name1 -o format=geojson global-settlements-Europe-filtered.json
+````
