@@ -1,9 +1,13 @@
-var Unrar = require('node-unrar');
- 
-var rar = new Unrar('../project-files/South_America.rar');
- 
-/// Create '/path/to/dest/' before rar.extract()
- 
-rar.extract('../data/South_American_Hydrography/', null, function (err) {
-    //file extracted successfully.
-});
+var exec = require('child_process').exec;
+
+var cmd = 'unrar x project-files/South_America.rar data/';
+
+
+
+exec(cmd, function(error, stdout, stderr) {
+
+ if(error) throw error
+
+ console.log(stdout, stderr)
+
+});;

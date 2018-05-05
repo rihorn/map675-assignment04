@@ -20,6 +20,7 @@
     "chalk": "^2.4.1",
     "node-unrar": "^0.1.5",
     "node-unrar-js": "^0.8.1",
-    "shell-escape": "^0.2.0"
+    "shell-escape": "^0.2.0",
+    "unrar": "^0.1.7"
   }
 }
