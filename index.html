@@ -27,8 +27,10 @@
 
   <div id="map"></div>
 
-  <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+  <!-- <script src="https://d3js.org/d3-fetch.v1.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script src="libs/Leaflet.markercluster/leaflet.markercluster.js"></script>
   <script>
     // map options
     var options = {
@@ -44,12 +46,63 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(map);
 
-    d3.json('data/global_settlement_points_v1-Americas-South-America.json').then(function (data) {
-      L.geoJson(data).addTo(map)
-    });
-    d3.json('data/South-America.json').then(function (data) {
-      L.geoJson(data).addTo(map)
-    });
+    // d3.json('data/global_settlement_points_v1-Americas-South-America.json').then(function (data) {
+    //   L.geoJson(data).addTo(map)
+    // });
+    // d3.json('data/South-America.json').then(function (data) {
+    //   L.geoJson(data).addTo(map)
+    // });
+
+
+    $.when(
+      $.getJSON('data/South-America.json'),
+      $.getJSON('data/global_settlement_points_v1-Americas-South-America.json'),
+      $.getJSON('data/South-America-Hydrography.json')
+    ).done(function (polygonData, pointData, hydroData) {
+
+      var polygons = polygonData[0],
+        points = pointData[0];
+        hydro = hydroData[0];
+
+      var polygonsLayerGroup = L.geoJson(polygons, {
+        style: function (feature) {
+          return {
+            fillOpacity: .2
+          }
+        }
+      }).addTo(map);
+
+      var hyrdoLayerGroup = L.geoJson(hydro, {
+        style: function (feature) {
+          return {
+            fillOpacity: .7
+          }
+        }
+      }).addTo(map);
+
+
+
+      var markers = L.markerClusterGroup();
+
+      // loop through all our signals features
+      points.features.forEach(function (feature) {
+        // create a new Leaflet marker for each
+        var coords = feature.geometry.coordinates,
+          marker = L.marker([coords[1], coords[0]]);
+        // bind a tooltip to the marker
+        marker.bindTooltip("Settlement: " + feature.properties.Name1);
+        // add the marker to the markerClusterGroup
+        markers.addLayer(marker);
+
+      });
+      // add the markerClusterGroup to the map
+      map.addLayer(markers);
+
+
+
+    })
 
   </script>
 </body>
+
+</html>
