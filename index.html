@@ -77,14 +77,6 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(map);
 
-    // d3.json('data/global_settlement_points_v1-Americas-South-America.json').then(function (data) {
-    //   L.geoJson(data).addTo(map)
-    // });
-    // d3.json('data/South-America.json').then(function (data) {
-    //   L.geoJson(data).addTo(map)
-    // });
-
-
     $.when(
       $.getJSON('data/South-America.json'),
       $.getJSON('data/global_settlement_points_v1-Americas-South-America.json'),
@@ -93,65 +85,37 @@
 
       var polygons = polygonData[0],
         points = pointData[0];
-    //  colors = colorsData[0];
-
-      //console.log(colors);
 
       // store a reference to the HTML list
       var legendList = $('#legend-list');
-      // loop through the features and create a new
-      // list item for each feature in the legend
-      // for (var i = 1; i <= polygons.features.length; i++) {
-      //   legendList.append('<li class="legend-item" id="district-' + i + '"><a style="color:' + colors.Vivid[10][i -1] + '" href="#">District ' + i + ' (<span></span>)</a></li>');
-      // }
-
 
       var polygonsLayerGroup = L.geoJson(polygons, {
         style: function (feature) {
           return {
-           // color: colors.Vivid[10][feature.properties.COUNTRY],
+            // color: colors.Vivid[10][feature.properties.COUNTRY],
             fillOpacity: .2
           }
-
         }
       }).addTo(map);
-  //  console.log(polygons);
-
-
-      // var hyrdoLayerGroup = L.geoJson(hydro, {
-      //   style: function (feature) {
-      //     return {
-      //       fillOpacity: .7
-      //     }
-      //   }
-      // }).addTo(map);
-
 
 
       var markers = L.markerClusterGroup();
-      
-     
 
       // loop through all our signals features
       points.features.forEach(function (feature) {
         // create a new Leaflet marker for each
         var coords = feature.geometry.coordinates,
           marker = L.marker([coords[1], coords[0]],
-          country = feature.properties.Country,
-          year = feature.properties.Year);
+            country = feature.properties.Country,
+            year = feature.properties.Year);
         // bind a tooltip to the marker
-        marker.bindTooltip("Settlement: " + feature.properties.Name1 + ", " + "<br>"+ "Country: " + country + "<br>" + "Census Year: " + year);
+        marker.bindTooltip("Settlement: " + feature.properties.Name1 + ", " + "<br>" + "Country: " + country + "<br>" + "Census Year: " + year);
         // add the marker to the markerClusterGroup
         markers.addLayer(marker);
-       // console.log(country);
 
       });
       // add the markerClusterGroup to the map
       map.addLayer(markers);
-
-
-
-
 
     })
   </script>
