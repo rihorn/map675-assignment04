@@ -36,3 +36,7 @@ The next command I used to create a new directory and create an _unrar.js_ file.
 `$ cd ../ && mkdir scripts && touch unrar.js`
 
 Which I created in the wrong directory just dragged and dropped it into the _scripts_ folder.
+
+I tried making and _unrar.js_ script but couldn't get it to work correctly. I ended up downloading 7-zip to unarchive the .rar file.  Then I ran the following commands to convert to a _json_ and move to the _data_ directory.
+`$ mapshaper South_America_Hydrography.shp -o format=geojson ../data/South-America-Hydrography.json`
+
