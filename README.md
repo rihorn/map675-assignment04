@@ -25,10 +25,12 @@ I then removed _*Continent*_ from the .json
 The next set of data I searched for was polygon data from the following [website](https://tapiquen-sig.jimdo.com/english-version/free-downloads/south-america/).
 > "Shape downloaded from [http://tapiquen-sig.jimdo.com](http://tapiquen-sig.jimdo.com). Carlos Efraín Porto Tapiquén. Orogénesis Soluciones Geográficas. Porlamar, Venezuela, 2015."
 
-```$ curl -LOk https://tapiquen-sig.jimdo.com/app/download/5497300559/South_America_Hydrography.rar?t=1484
+```
+$ curl -LOk https://tapiquen-sig.jimdo.com/app/download/5497300559/South_America_Hydrography.rar?t=1484
 592815
   0     0    0     0    0     0      0      0
-100 11979  100 11979    0```
+100 11979  100 11979    0
+```
 
 Because this was a _.rar_ file I used `npm install node-unrar`.
 
