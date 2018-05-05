@@ -1,6 +1,6 @@
 var Unrar = require('node-unrar');
  
-var rar = new Unrar('../project-files/South_America_Hydrography.rar');
+var rar = new Unrar('../project-files/South_America.rar');
  
 /// Create '/path/to/dest/' before rar.extract()
  

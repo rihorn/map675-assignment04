@@ -32,7 +32,7 @@
   <script>
     // map options
     var options = {
-       center: [-16.6006,-56.1004],
+      center: [-16.6006, -56.1004],
       zoom: 3.2
     }
     // instantiate Leaflet map
@@ -45,6 +45,9 @@
     }).addTo(map);
 
     d3.json('data/global_settlement_points_v1-Americas-South-America.json').then(function (data) {
+      L.geoJson(data).addTo(map)
+    });
+    d3.json('data/South-America.json').then(function (data) {
       L.geoJson(data).addTo(map)
     });
 
