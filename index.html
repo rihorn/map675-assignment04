@@ -26,7 +26,7 @@
       z-index: 1000;
       /* place above map */
       bottom: 18px;
-      right: 18px;
+      left: 18px;
       padding: 6px 12px;
       background: rgba(256, 256, 256, .9);
     }
@@ -59,27 +59,42 @@
   <div id="map"></div>
   <div id="ui">
     <h3>South America</h3>
-    <ul id-"legend-list"></ul>
+    <ul id- "legend-list"></ul>
   </div>
 
   <!-- <script src="https://d3js.org/d3-fetch.v1.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
   <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
   <script src="libs/Leaflet.markercluster/leaflet.markercluster.js"></script>
+
   <script>
     // map options
-    var options = {
+    L.mapbox.accessToken = 'pk.eyJ1Ijoicmdkb25vaHVlIiwiYSI6Im5Ua3F4UzgifQ.PClcVzU5OUj17kuxqsY_Dg';
+
+    var map = L.mapbox.map('map', 'mapbox.satellite', {
+      zoomSnap: .1,
       center: [-16.6006, -56.1004],
       zoom: 3.2
-    }
+      // minZoom: 6,
+      // maxZoom: 9,
+      // maxBounds: L.latLngBounds([-6.22, 27.72], [5.76, 47.83])
+    });
+
+
+    // var options = {
+    //   center: [-16.6006, -56.1004],
+    //   zoom: 3.2
+    // }
     // instantiate Leaflet map
-    var map = L.map('map', options);
+    // var map = L.map('map', options);
 
     // add CARTO voyager tiles with no labels
-    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
-      maxZoom: 17,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
-    }).addTo(map);
+    // L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+    //   maxZoom: 17,
+    //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+    // }).addTo(map);
 
     $.when(
       $.getJSON('data/South-America.json'),
@@ -96,14 +111,14 @@
       var legendList = $('#legend-list');
 
       for (var i = 1; i <= polygons.features.length; i++) {
-        legendList.append('<li class="legend-item" id ='+  country > '"<a style="color:' + colors.Vivid[10][i - 1] + '" href="#">' + i + '(<span></span>)<a/></li>');
+        legendList.append('<li class="legend-item" id =' > '"<a style="color:' + colors.Vivid[10][i - 1] + '" href="#">' + i + '(<span></span>)<a/></li>');
       }
 
 
       var polygonsLayerGroup = L.geoJson(polygons, {
         style: function (feature) {
           return {
-             color: colors.Vivid[10][feature.properties.Field - 1],
+            color: colors.Vivid[10][feature.properties.Field - 1],
             fillOpacity: .6
           }
         }
