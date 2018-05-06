@@ -25,7 +25,7 @@ I then removed _*Continent*_ from the .json
 The next set of data I searched for was polygon data from the following [website](https://tapiquen-sig.jimdo.com/english-version/free-downloads/south-america/).
 > "Shape downloaded from [http://tapiquen-sig.jimdo.com](http://tapiquen-sig.jimdo.com). Carlos Efraín Porto Tapiquén. Orogénesis Soluciones Geográficas. Porlamar, Venezuela, 2015."
 
-```
+``` english
 $ curl -LOk https://tapiquen-sig.jimdo.com/app/download/5497300559/South_America_Hydrography.rar?t=1484
 592815
   0     0    0     0    0     0      0      0
@@ -42,3 +42,15 @@ Which I created in the wrong directory just dragged and dropped it into the _scr
 I tried making and _unrar.js_ script but couldn't get it to work correctly. I ended up downloading 7-zip to unarchive the .rar file.  Then I ran the following commands to convert to a _json_ and move to the _data_ directory.
 `mapshaper project-files/South_America.shp -o format=geojson data/South-America.json`
 
+## Styling
+
+Lots of trial and error on styling South America polygons layer. Eventually, I added _project-files/South_America.shp_ to QGIS to add and `ID` field.
+
+ ```english
+ Attribute data
+  Field    First value
+  COUNTRY  'Argentina'
+  ID       1
+```
+
+![With Earth Tone Colors](images/earthColors.PNG)
