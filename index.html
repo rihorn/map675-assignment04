@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Lesson 02 template</title>
+  <title>South American Settlements</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
   <style>
     body {
@@ -22,34 +22,29 @@
     }
 
     #ui {
-      position: absolute;
-      z-index: 1000;
-      /* place above map */
-      bottom: 18px;
-      right: 18px;
-      padding: 6px 12px;
-      background: rgba(256, 256, 256, .9);
+        position: absolute;
+        z-index: 1000; /* place above map */
+        bottom: 18px;
+        right: 18px;
+        padding: 6px 12px;
+        background: rgba(256,256,256,.9);
     }
 
     #ui ul {
-      list-style-type: none;
-      padding: 0;
+        list-style-type: none;
+        padding: 0;
     }
-
     #ui li {
-      margin-bottom: 6px;
+        margin-bottom: 6px;
     }
-
     #ui a {
-      text-decoration: none;
+        text-decoration: none;
     }
-
     #ui a:hover {
-      font-weight: bold;
+        font-weight: bold;
     }
-
     .highlight {
-      font-weight: bold;
+        font-weight: bold;
     }
   </style>
 </head>
@@ -57,6 +52,11 @@
 <body>
 
   <div id="map"></div>
+
+  <div id="ui">
+      <h3>South American Countries</h3>
+      <ul id="legend-list"></ul>
+  </div>
 
   <!-- <script src="https://d3js.org/d3-fetch.v1.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -77,47 +77,144 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(map);
 
-    $.when(
-      $.getJSON('data/South-America.json'),
-      $.getJSON('data/global_settlement_points_v1-Americas-South-America.json'),
-      $.getJSON('data/vividcolors.json')
-    ).done(function (polygonData, pointData, colorsData) {
+1//////////////
 
-      var polygons = polygonData[0],
-        points = pointData[0];
+    var districts = districtsData[0],
+    colors = colorsData[0],
+    signals = signalsData[0];
 
-      // store a reference to the HTML list
-      var legendList = $('#legend-list');
+// store a reference to the HTML list
+var legendList = $('#legend-list');
 
-      var polygonsLayerGroup = L.geoJson(polygons, {
-        style: function (feature) {
-          return {
-            // color: colors.Vivid[10][feature.properties.COUNTRY],
-            fillOpacity: .2
-          }
-        }
-      }).addTo(map);
+// loop through the features and create a new
+// list item for each feature in the legend
+for(var i = 1; i <= districts.features.length; i++) {
+    legendList.append('<li class="legend-item" id="district-' + i + '"><a style="color:' + colors.Vivid[10][i -1] + '" href="#">District ' + i + ' (<span></span>)</a></li>');
+}
 
 
-      var markers = L.markerClusterGroup();
+2 //////////
+// create a layerGroup with the geojson data
+var districtsLayerGroup = L.geoJson(districts, {
+  style: function (feature) {
+    // use the colors object to style
+    // each polygon a unique color
+    return {
+      color: colors.Vivid[10][feature.properties.council_di - 1],
+      fillOpacity: .6
+    }
+  },
+  onEachFeature(feature, layer) {
+    // select each legend list item span and append the total count of signals
+    $('#district-' + feature.properties.council_di + ' span').append(feature.properties.count);
 
-      // loop through all our signals features
-      points.features.forEach(function (feature) {
-        // create a new Leaflet marker for each
-        var coords = feature.geometry.coordinates,
-          marker = L.marker([coords[1], coords[0]],
-            country = feature.properties.Country,
-            year = feature.properties.Year);
-        // bind a tooltip to the marker
-        marker.bindTooltip("Settlement: " + feature.properties.Name1 + ", " + "<br>" + "Country: " + country + "<br>" + "Census Year: " + year);
-        // add the marker to the markerClusterGroup
-        markers.addLayer(marker);
-
+    //when mousing over a polygon layer
+    layer.on('mouseover', function () {
+      // provide a visual affordance
+      this.setStyle({
+        fillOpacity: .8
       });
-      // add the markerClusterGroup to the map
-      map.addLayer(markers);
 
+      // select the cooresponding list item
+      // and add the highlight class to make bold
+      $('#district-' + feature.properties.council_di).addClass('highlight');
     })
+  }
+}).addTo(map);
+
+3//////////
+// select all the list items and on mouseover
+$('.legend-item').on('mouseover', function() {
+    // extract the specific number from the specific item
+    // being moused over
+    var num = this.id.replace('district-', '');
+    // send this number as an argument to the highlightDistrict function
+    highlightDistrict(num);
+});
+
+function highlightDistrict(districtNum) {
+    // loop through the districts polygons
+    districtsLayerGroup.eachLayer(function(layer) {
+        // if the district id matches the one we're mousing over
+        if(layer.feature.properties.council_di === districtNum) {
+            // change the layer style
+            layer.setStyle({
+                fillOpacity: .8
+            }).bringToFront();
+        } else {
+            // return to original
+            layer.setStyle({
+                fillOpacity: .6
+            });
+        }
+    });
+}
+
+4//////////
+// create new markerClusterGroup
+var markers = L.markerClusterGroup();
+
+// loop through all our signals features
+signals.features.forEach(function(feature) {
+  // create a new Leaflet marker for each
+  var coords = feature.geometry.coordinates,
+      marker = L.marker([coords[1], coords[0]]);
+  // bind a tooltip to the marker
+  marker.bindTooltip("Signal ID: " + feature.properties.SIGNAL_ID);
+  // add the marker to the markerClusterGroup
+  markers.addLayer(marker);
+
+});
+// add the markerClusterGroup to the map
+map.addLayer(markers);
+
+    // $.when(
+    //   $.getJSON('data/South-America.json'),
+    //   $.getJSON('data/global_settlement_points_v1-Americas-South-America.json'),
+    //   $.getJSON('data/vividcolors.json')
+    // ).done(function (polygonData, pointData, colorsData) {
+    //
+    //   var polygons = polygonData[0],
+    //     points = pointData[0];
+    //
+    // store a reference to the HTML list
+    var legendList = $('#legend-list');
+
+    // loop through the features and create a new
+    // list item for each feature in the legend
+    for(var i = 1; i <= polygons.features.length; i++) {
+        legendList.append('<li class="legend-item" id="district-' + i + '"><a style="color:' + colors.Vivid[10][i -1] + '" href="#">District ' + i + ' (<span></span>)</a></li>');
+    }
+    //
+    //   var polygonsLayerGroup = L.geoJson(polygons, {
+    //     style: function (feature) {
+    //       return {
+    //         // color: colors.Vivid[10][feature.properties.COUNTRY],
+    //         fillOpacity: .2
+    //       }
+    //     }
+    //   }).addTo(map);
+    //
+    //
+    //   var markers = L.markerClusterGroup();
+    //
+    //   // loop through all our signals features
+    //   points.features.forEach(function (feature) {
+    //     // create a new Leaflet marker for each
+    //     var coords = feature.geometry.coordinates,
+    //       marker = L.marker([coords[1], coords[0]],
+    //         country = feature.properties.Country,
+    //         year = feature.properties.Year);
+    //     // bind a tooltip to the marker
+    //     marker.bindTooltip("Settlement: " + feature.properties.Name1 + ", " + "<br>" + "Country: " + country + "<br>" + "Census Year: " + year);
+    //     // add the marker to the markerClusterGroup
+    //     markers.addLayer(marker);
+    //
+    //   });
+    //   // add the markerClusterGroup to the map
+    //   map.addLayer(markers);
+    //
+    // })
   </script>
 </body>
 
