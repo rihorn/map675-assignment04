@@ -96,15 +96,15 @@
       var legendList = $('#legend-list');
 
       for (var i = 1; i <= polygons.features.length; i++) {
-        legendList.append('<li class="legend-item" id = i><a style="color:' + colors.Vivid[10][i - 1] + '" href="#"' + i + '(<span></span>)<a/></li>');
+        legendList.append('<li class="legend-item" id ='+  country > '"<a style="color:' + colors.Vivid[10][i - 1] + '" href="#">' + i + '(<span></span>)<a/></li>');
       }
 
 
       var polygonsLayerGroup = L.geoJson(polygons, {
         style: function (feature) {
           return {
-             color: colors.Vivid[10][feature.properties.COUNTRY-1],
-            fillOpacity: .1
+             color: colors.Vivid[10][feature.properties.Field - 1],
+            fillOpacity: .6
           }
         }
       }).addTo(map);
