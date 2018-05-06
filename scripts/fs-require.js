@@ -1,5 +1,5 @@
-"use strict"
+var colors = require('../project-files/cartocolors.json');
 
-var colors = require('../data/cartocolors.json');
-
-console.log(colors);
+for(var color in colors) {
+    console.log(color)
+}
