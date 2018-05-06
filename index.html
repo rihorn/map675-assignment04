@@ -57,6 +57,10 @@
 <body>
 
   <div id="map"></div>
+  <div id="ui">
+    <h3>South America</h3>
+    <ul id-"legend-list"></ul>
+  </div>
 
   <!-- <script src="https://d3js.org/d3-fetch.v1.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -85,15 +89,22 @@
 
       var polygons = polygonData[0],
         points = pointData[0];
+      colors = colorsData[0];
+      //console.log(colors);
 
       // store a reference to the HTML list
       var legendList = $('#legend-list');
 
+      for (var i = 1; i <= polygons.features.length; i++) {
+        legendList.append('<li class="legend-item" id = i><a style="color:' + colors.Vivid[10][i - 1] + '" href="#"' + i + '(<span></span>)<a/></li>');
+      }
+
+
       var polygonsLayerGroup = L.geoJson(polygons, {
         style: function (feature) {
           return {
-            // color: colors.Vivid[10][feature.properties.COUNTRY],
-            fillOpacity: .2
+             color: colors.Vivid[10][feature.properties.COUNTRY-1],
+            fillOpacity: .1
           }
         }
       }).addTo(map);
@@ -109,7 +120,7 @@
             country = feature.properties.Country,
             year = feature.properties.Year);
         // bind a tooltip to the marker
-        marker.bindTooltip("Settlement: " + feature.properties.Name1  + "<br>" + "Country: " + country + "<br>" + "Estimate Year: " + year);
+        marker.bindTooltip("Settlement: " + feature.properties.Name1 + "<br>" + "Country: " + country + "<br>" + "Estimate Year: " + year);
         // add the marker to the markerClusterGroup
         markers.addLayer(marker);
 
