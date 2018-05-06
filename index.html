@@ -109,7 +109,7 @@
             country = feature.properties.Country,
             year = feature.properties.Year);
         // bind a tooltip to the marker
-        marker.bindTooltip("Settlement: " + feature.properties.Name1 + ", " + "<br>" + "Country: " + country + "<br>" + "Census Year: " + year);
+        marker.bindTooltip("Settlement: " + feature.properties.Name1  + "<br>" + "Country: " + country + "<br>" + "Estimate Year: " + year);
         // add the marker to the markerClusterGroup
         markers.addLayer(marker);
 
