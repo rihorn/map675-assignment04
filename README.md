@@ -57,6 +57,7 @@ Lots of trial and error on styling South America polygons layer. Eventually, I a
 
 
 Finally got the marker clusters to show up once I added the _*.CSS*_
-`  <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.Default.css"> />
-  <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.css"> />`
-  ![South America](images/SouthAmericaClusters.PNG)
+```  <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.Default.css"> />
+  <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.css"> />```
+  
+    ![South America](images/SouthAmericaClusters.PNG)
