@@ -126,15 +126,20 @@
         }
       }).addTo(map);
 
+      var icon = L.icon({
+        iconUrl: 'icons/mapbox-maki-463a9ff/icons/town-15.svg'
+      });
 
-      var markers = L.markerClusterGroup();
+      var markers = L.markerClusterGroup({
+			  iconCreateFunction: function (cluster) {
+          return L.icon({ iconUrl: 'icons/mapbox-maki-463a9ff/icons/town-15.svg' });
+				  // return L.marker({ icon: icon });
+			  }
+      });
 
       // loop through all our signals features
       points.features.forEach(function (feature) {
 
-        var icon = L.icon({
-          iconUrl: 'icons/mapbox-maki-463a9ff/icons/town-15.svg'
-        });
         // create a new Leaflet marker for each
         var coords = feature.geometry.coordinates,
           marker = L.marker([coords[1], coords[0]],{
