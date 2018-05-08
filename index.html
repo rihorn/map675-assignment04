@@ -61,7 +61,7 @@
   <div id="map"></div>
   <div id="ui">
     <h3>South America</h3>
-    <ul id- "legend-list"></ul>
+    <ul id="legend-list"></ul>
   </div>
 
   <!-- <script src="https://d3js.org/d3-fetch.v1.min.js"></script> -->
@@ -113,7 +113,7 @@
       var legendList = $('#legend-list');
 
       for (var i = 1; i <= polygons.features.length; i++) {
-        legendList.append('<li class="legend-item" id =' > '"<a style="color:' + colors.Vivid[10][i - 1] + '" href="#">' + i + '(<span></span>)<a/></li>');
+        legendList.append('<li class="legend-item" id="Country ' + i + '" ><a style="color:' + colors.Vivid[[10][i - 1]] + '" href="#">' + i + '(<span></span>)<a/></li>');
       }
 
 
