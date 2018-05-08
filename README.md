@@ -59,4 +59,4 @@ Finally got the marker clusters to show up once I added the _*.CSS*_
 
 ```  <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.Default.css"> />
   <link rel="stylesheet" href="libs/Leaflet.markercluster/MarkerCluster.css"> />```
-  ![South America](images/SouthAmericaClusters.PNG)
+  ![alt text](images/SouthAmericaClusters.PNG)
