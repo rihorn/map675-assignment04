@@ -102,13 +102,46 @@
         legendList.append('<li class="legend-item" id="country ' + props.ID + '" ><a style="color:' + colors.Vivid[[10][i - 1]] + '" href="#">' + props.COUNTRY + '(<span>' + props.NUMPOINTS + '</span>)<a/></li>');
 
       }
-
+      // create a layerGroup with the geojson data
       var polygonsLayerGroup = L.geoJson(polygons, {
         style: function (feature) {
+          // use the colors object to style
+          // each polygon a unique color
           return {
-            color: colors.Vivid[10][feature.properties.ID - 1],
-            fillOpacity: .6
+            color: colors.Vivid[10]
+            [feature.properties.ID - 1],
+            fillOpacity: .4
           }
+        },
+        oneEachFeature(feature, layer) {
+          // select each legend list item span and append the total count of signals
+          $('#Country-' + feature.properties.COUNTRY + 'span').append(feature.properties.NUMPOINTS);
+
+          //when mousing over a polygon layer
+          layer.on('mouseover', function () {
+            // provide a visual affordance
+            this.setStyle({
+              fillOpacity: .8
+            })
+
+            // select the cooresponding list item
+            // and add the highlight class to make bold
+            $('#Country-' + feature.properties.COUNTRY).addClass('highlight');
+            zoom();
+          })
+          layer.on('mouseout', function () {
+            // provide a visual affordance
+            this.setStyle({
+              fillOpacity: .6
+            })
+
+            // select the cooresponding list item
+            // and add the highlight class to make bold
+            $('#district-' + feature.properties.COUNTRY).removeClass('highlight');
+            zoom();
+          })
+
+
         }
       }).addTo(map);
 
@@ -137,8 +170,40 @@
       // add the markerClusterGroup to the map
       map.addLayer(markers);
 
-    })
-  </script>
+
+      $('.legend-item').on('mouseover', function () {
+        // extract the specific number from the specific item
+        // being moused over
+        var num = this.id.replace('Country-', '');
+        // send this number as an argument to the highlightDistrict function
+        highlightCountry(num);
+      });
+
+      function highlightCountry() {
+        // loop through the districts polygons
+        polygonsLayerGroup.eachLayer(function (layer) {
+          // if the district id matches the one we're mousing over
+          if (layer.feature.properties.COUNTRY) {
+            // change the layer style
+            layer.setStyle({
+              fillOpacity: .8
+            }).bringToFront();
+          } else {
+            // return to original
+            layer.setStyle({
+              fillOpacity: .4
+            });
+          }
+        });
+      }
+    });
+
+    function zoom() {
+      map.on('click', function (e) {
+        map.setView(e.latlng, 12);
+      })
+    };
+</script>
 </body>
 
 </html>
