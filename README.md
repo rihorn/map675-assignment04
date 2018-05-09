@@ -72,5 +72,6 @@ With the following code
 
       }
 ```
-I was able to appropriate populate the 
+I was able to appropriate populate the points in a polygon.
+
 ![Points In a Polygons](images/pointsPolgyon.PNG)
