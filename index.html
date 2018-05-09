@@ -61,6 +61,7 @@
   <div id="map"></div>
   <div id="ui">
     <h3>South America</h3>
+    <h4>(# of settlements)</h4>
     <ul id="legend-list"></ul>
   </div>
 
@@ -79,27 +80,11 @@
       zoomSnap: .1,
       center: [-16.6006, -55.1004],
       zoom: 3
-      // minZoom: 6,
-      // maxZoom: 9,
-      //maxBounds: L.latLngBounds([-6.22, 27.72], [5.76, 47.83])
+
     });
 
-
-    // var options = {
-    //   center: [-16.6006, -56.1004],
-    //   zoom: 3.2
-    // }
-    // instantiate Leaflet map
-    // var map = L.map('map', options);
-
-    // add CARTO voyager tiles with no labels
-    // L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
-    //   maxZoom: 17,
-    //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
-    // }).addTo(map);
-
     $.when(
-      $.getJSON('data/South-America.json'),
+      $.getJSON('data/South-America-counts.json'),
       $.getJSON('data/global_settlement_points_v1-Americas-South-America.json'),
       $.getJSON('data/vividcolors.json')
     ).done(function (polygonData, pointData, colorsData) {
@@ -112,10 +97,11 @@
       // store a reference to the HTML list
       var legendList = $('#legend-list');
 
-      for (var i = 1; i <= polygons.features.length; i++) {
-        legendList.append('<li class="legend-item" id="Country ' + i + '" ><a style="color:' + colors.Vivid[[10][i - 1]] + '" href="#">' + i + '(<span></span>)<a/></li>');
-      }
+      for (var i = 0; i <= polygons.features.length - 1; i++) {
+        var props = polygons.features[i].properties;
+        legendList.append('<li class="legend-item" id="country ' + props.ID + '" ><a style="color:' + colors.Vivid[[10][i - 1]] + '" href="#">' + props.COUNTRY + '(<span>' + props.NUMPOINTS + '</span>)<a/></li>');
 
+      }
 
       var polygonsLayerGroup = L.geoJson(polygons, {
         style: function (feature) {
@@ -137,8 +123,8 @@
         });
         // create a new Leaflet marker for each
         var coords = feature.geometry.coordinates,
-          marker = L.marker([coords[1], coords[0]],{
-            icon:icon
+          marker = L.marker([coords[1], coords[0]], {
+            icon: icon
           },
             country = feature.properties.Country,
             year = feature.properties.Year);
