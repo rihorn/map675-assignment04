@@ -62,3 +62,14 @@ Finally got the marker clusters to show up once I added the _*.CSS*_
 ```
 
   ![alt text](images/SouthAmericaClusters.PNG)
+
+I totally missed the point of the lesson and the `bindData`.  To remedy this and given the time contraints,I added the `South-America.json` to QGIS and performed a `points to polygon` geoprocess so I could have a total number of points per polygon _number of settlements/country_. 
+With the following code 
+``` javascript
+      for (var i = 0; i <= polygons.features.length - 1; i++) {
+        var props = polygons.features[i].properties;
+        legendList.append('<li class="legend-item" id="country ' + props.ID + '" ><a style="color:' + colors.Vivid[[10][i - 1]] + '" href="#">' + props.COUNTRY + '(<span>' + props.NUMPOINTS + '</span>)<a/></li>');
+
+      }
+```
+I was able to appropriate populate the ![legend](images.pointsPolygon.PNG)
