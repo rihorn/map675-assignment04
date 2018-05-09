@@ -72,4 +72,4 @@ With the following code
 
       }
 ```
-I was able to appropriate populate the ![legend](images/pointsPolygon.PNG)
+I was able to appropriate populate the ![alt text](images/pointsPolygon.PNG)
