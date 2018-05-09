@@ -73,4 +73,4 @@ With the following code
       }
 ```
 I was able to appropriate populate the 
-![Points In a Polygons](images/pointsPolygon.PNG)
+![Points In a Polygons](images/pointsPolgyon.PNG)
